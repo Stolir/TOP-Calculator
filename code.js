@@ -19,3 +19,39 @@ buttons.forEach((button) => {
 })
 
 
+function calculate(operator) {
+    switch (operator) {
+        case '+':
+            return add(num1, num2);
+        case '-':
+            return subtract(num1, num2);
+        case '*': 
+            return (num1, num2);
+        case '/':
+            return divide(num1, num2);
+    }
+}
+
+function add(x, y) {
+    num1 = 0;
+    num2 = 0;
+    return x + y;
+}
+
+function subtract(x, y) {
+    num1 = 0;
+    num2 = 0;
+    return x - y;
+}
+
+function multiply(x, y) {
+    num1 = 0;
+    num2 = 0;
+    return x * y;
+}
+
+function divide(x, y) {
+    num1 = 0;
+    num2 = 0;
+    return x / y;
+}
