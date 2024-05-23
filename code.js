@@ -21,7 +21,9 @@ changeSign.addEventListener('click', () => {
 })
 
 const percent = document.querySelector('#percent');
-percent.addEventListener('click', toPercentage)
+percent.addEventListener('click', () => {
+    display.textContent = +display.textContent / 100;
+})
 
 const equals = document.querySelector('#equals');
 equals.addEventListener('click', () => {
@@ -110,7 +112,7 @@ function divide(x, y) {
     return sum;
 }
 
-function toPercentage(x) {
+function toPercentage() {
     return x / 100;
 }
 
