@@ -86,7 +86,10 @@ button {
 }
 
 #footer {
-    margin-top: 150px;
-    text-align: center;
     font-size: 15px;
+    position: fixed;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
 }
