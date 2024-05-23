@@ -2,15 +2,44 @@ let num1 = null;
 let num2 = null;
 let sum = 0;
 operator = null;
+let key = '';
 
 const display = document.querySelector('#display');
+const page = document.querySelector('body');
+page.addEventListener('keydown', (e) => {
+    if (e.shiftKey === true) {
+            switch (e.code) {
+                case ('Digit5'):
+                    key = 'percent'
+                    break;
+                case ('Digit8'):
+                    key = 'Asterisk'
+                    break;
+                case ('Equal'):
+                    key = 'Plus'
+                    break;
+            }
+    }
+    else {
+        key = e.code
+    }
+    console.log(e)
+    document.querySelector(`#${key}`).click()
+    key = ''
+})
 
-const buttons = document.querySelectorAll('button') ;
+const buttons = document.querySelectorAll('button');
+
+const decimal = document.querySelector('#Period');
 
 const clear = document.querySelector('#AC');
-clear.addEventListener('click', reset);
+clear.addEventListener('click', () => {
+    reset();
+    sum = 0;
+    display.textContent = '';
+});
 
-const del = document.querySelector('#del');
+const del = document.querySelector('#Backspace');
 del.addEventListener('click', () => {
     display.textContent = Math.floor(+display.textContent / 10)
 })
@@ -25,12 +54,12 @@ percent.addEventListener('click', () => {
     display.textContent = +display.textContent / 100;
 })
 
-const equals = document.querySelector('#equals');
+const equals = document.querySelector('#Equal');
 equals.addEventListener('click', () => {
     if (num1 !== null && num2 !== null) {
         display.textContent = calculate(operator);
     }
-    else if (num2 === null) {
+    else if (num1 !== null && num2 === null) {
         if (display.textContent === '') {
             num2 = num1;
         }
@@ -38,16 +67,21 @@ equals.addEventListener('click', () => {
             num2 = +display.textContent;
         }
         display.textContent = calculate(operator);
+        decimal.disabled = false;
+    }
+    else if (num1 === null && num2 === null) {
+        display.textContent = display.textContent;
+        reset();
     }
 })
 
 buttons.forEach((button) => {
     if (button.classList.contains('number')) {
         button.addEventListener('click', () => {
-            display.textContent += button.textContent;
             if (button.textContent.includes('.')) {
                 button.disabled = true;
             }
+            display.textContent += button.textContent;
         })
     }
     else if (button.classList.contains('operator')) {
@@ -66,9 +100,11 @@ buttons.forEach((button) => {
                 }
                 display.textContent = calculate(operator);
             }
+            decimal.disabled = false;
         })
     }
 })
+
 
 
 function calculate(operator) {
@@ -86,40 +122,32 @@ function calculate(operator) {
 
 function add(x, y) {
     sum = x + y;
-    num1 = null;
-    num2 = null;
+    reset()
     return sum;
 }
 
 function subtract(x, y) {
     sum = x - y;
-    num1 = null;
-    num2 = null;
+    reset()
     return sum;
 }
 
 function multiply(x, y) {
     sum = x * y;
-    num1 = null;
-    num2 = null;
+    reset()
     return sum;
 }
 
 function divide(x, y) {
     sum = x / y;
-    num1 = null;
-    num2 = null;
+    reset()
     return sum;
 }
 
-function toPercentage() {
-    return x / 100;
-}
 
 function reset() {
-    let num1 = null;
-    let num2 = null;
-    let sum = 0;
+    num1 = null;
+    num2 = null;
     operator = null;
-    display.textContent = ''
+    decimal.disabled = false;
 }
