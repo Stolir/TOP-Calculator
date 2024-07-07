@@ -1,12 +1,15 @@
+// define important variables
 let num1 = null;
 let num2 = null;
 let sum = 0;
 operator = null;
 let key = '';
 
+// add keyboard functionality
 const display = document.querySelector('#display');
 const page = document.querySelector('body');
 page.addEventListener('keydown', (e) => {
+    // When shift is pressed the keycode remains the same although another output is targeted
     if (e.shiftKey === true) {
             switch (e.code) {
                 case ('Digit5'):
@@ -20,6 +23,7 @@ page.addEventListener('keydown', (e) => {
                     break;
             }
     }
+    // if shift is not pressed just take key code
     else {
         key = e.code
     }
@@ -32,6 +36,7 @@ const buttons = document.querySelectorAll('button');
 
 const decimal = document.querySelector('#Period');
 
+
 const clear = document.querySelector('#AC');
 clear.addEventListener('click', () => {
     reset();
@@ -41,7 +46,8 @@ clear.addEventListener('click', () => {
 
 const del = document.querySelector('#Backspace');
 del.addEventListener('click', () => {
-    display.textContent = Math.floor(+display.textContent / 10)
+    // remove the last character from the string
+    display.textContent = display.textContent.slice(0, display.textContent.length - 1)
 })
 
 const changeSign = document.querySelector('#changesign');
@@ -76,12 +82,17 @@ equals.addEventListener('click', () => {
 })
 
 buttons.forEach((button) => {
+    // If button is a number add it to the display
     if (button.classList.contains('number')) {
         button.addEventListener('click', () => {
-            if (button.textContent.includes('.')) {
-                button.disabled = true;
+            if (button.textContent == '.') {
+                if (!display.textContent.includes('.')) {
+                    display.textContent += button.textContent;
+                }
             }
-            display.textContent += button.textContent;
+            else {
+                display.textContent += button.textContent;
+            }
         })
     }
     else if (button.classList.contains('operator')) {
